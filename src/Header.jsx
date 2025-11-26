@@ -2,6 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from "@/components/ui/button"
 import { useUser,UserButton } from '@clerk/clerk-react'
+import logo1 from '/src/assets/HeaderLogo.svg'
+import logo2 from '/src/assets/resume-logo.png'
 function Header(){
   const{user,isSignedIn}=useUser()
   return (
@@ -9,16 +11,13 @@ function Header(){
 
 <div className="flex items-center justify-between ">
   <img
-    src="/src/assets/HeaderLogo.svg"
+    src={logo1}
     alt="Main Logo"
-    className="w-12 h-12 object-contain"
-  />
-
+    className="w-12 h-12 object-contain"/>
   <img
-    src="/src/assets/resume-logo.png"
+    src={logo2}
     alt="Resume Logo"
-    className=" ml-1 w-65 h-20 object-contain"
-  />
+    className=" ml-1 w-65 h-20 object-contain"/>
 </div>
      
            
