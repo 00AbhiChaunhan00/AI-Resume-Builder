@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import DummyData from '/src/DATA/DummyData.jsx'
+import DummyData from "/src/DATA/DummyData.jsx";
 
 export const ResumeContext = createContext(null);
 

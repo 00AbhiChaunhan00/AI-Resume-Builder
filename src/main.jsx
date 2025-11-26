@@ -4,45 +4,46 @@ import ViewResume from "./my-Resume/[resumeId]/view";
 import SignIN from "./SignIn";
 import Home from "./Home";
 import App from "./App";
+import ErrorPage from "./Error";
 import ResumeContextProvider from "./ContextProvider";
 import * as ReactDOM from "react-dom/client";
-import {createBrowserRouter,RouterProvider,} from "react-router-dom";
-import { ClerkProvider } from '@clerk/clerk-react'
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { ClerkProvider } from "@clerk/clerk-react";
 import "./index.css";
 import Edit from "./Resume/[resumeId]/Edit";
-const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
+const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 const router = createBrowserRouter([
   {
-   
-    element:<App/>,
-    children:[
+    element: <App />,
+    children: [
+      {
+        path: "/dashboard",
+        element: <Dashboard />,
+      },
 
-     {
-      path:'/dashboard',
-      element:<Dashboard/>
-     },
-
-     {
-      path:'/dashboard/resume/:resumeId/edit',
-      element:<Edit/>
-     }
-
-    ]
-
+      {
+        path: "/dashboard/resume/:resumeId/edit",
+        element: <Edit />,
+      },
+    ],
   },
 
   {
-      path:'/',
-      element:<Home/>
-     },
-  {
-    path:"/signIn",
-    element:<SignIN/>
+    path: "/",
+    element: <Home />,
   },
   {
-    path:'/my-resume/:resumeId/view',
-    element:<ViewResume/>
-  }
+    path: "/signIn",
+    element: <SignIN />,
+  },
+  {
+    path: "/my-resume/:resumeId/view",
+    element: <ViewResume />,
+  },
+  {
+    path: "*",
+    element: <ErrorPage />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -51,5 +52,4 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <RouterProvider router={router} />
     </ResumeContextProvider>
   </ClerkProvider>
-
 );

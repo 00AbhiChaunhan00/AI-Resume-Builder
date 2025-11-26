@@ -7,12 +7,9 @@ import ResumePreview from "../ResumePreview";
 import APIDATA from "../../DATA/APIDATA";
 // import DummyData from '/src/DATA/DummyData.jsx'
 import { ResumeContext } from "/src/ContextProvider.jsx";
-// in this we make it contexr because that data we need it more compents that why me make a context
-
-// export const ResumeContext = createContext(null);
 
 const Edit = () => {
-  const params = useParams(); // to get the id from url
+  const params = useParams(); 
 console.log(params)
   const { ResumeInfo, setResumeInfo } = useContext(ResumeContext);
 
@@ -21,8 +18,9 @@ console.log(params)
   }, []);
 
   function GetResumeInfo() {
-    APIDATA.GetResumeDetails(params?.resumeId).then((res) => {
-      console.log(res.data.data);
+    APIDATA.GetResumeDetails(params?.resumeId)
+    .then((res) => {
+      // console.log(res.data.data);
       setResumeInfo(res.data.data);
     });
   }

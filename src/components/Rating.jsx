@@ -1,8 +1,8 @@
-import React, {} from "react";
+import React from "react";
 import ReactStars from "react-rating-stars-component";
 
-function Rating({rating,setRating}) {
-//   const [rating, setRating] = useState(0);
+function Rating({ rating, setRating }) {
+  
 
   const ratingChanged = (newRating) => {
     console.log("New Rating: ", newRating);
@@ -14,10 +14,10 @@ function Rating({rating,setRating}) {
       <h2>Rate this:</h2>
 
       <ReactStars
-        count={5}           // number of stars
-        size={35}           // size of stars
-        activeColor="#ffd700" // yellow color
-        value={rating}      // current value
+        count={5}
+        size={35} 
+        activeColor="#ffd700" 
+        value={rating} 
         onChange={ratingChanged}
       />
 

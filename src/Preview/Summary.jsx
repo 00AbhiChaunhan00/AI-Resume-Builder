@@ -1,11 +1,10 @@
-import React from 'react'
+import React from "react";
 
-function Summary ({ResumeInfo}){
+function Summary({ ResumeInfo }) {
   return (
     <div>
-       
-      <h2 >{ResumeInfo?.summery}</h2>
+      <h2>{ResumeInfo?.summery}</h2>
     </div>
-  )
+  );
 }
-export default Summary
+export default Summary;

@@ -14,18 +14,15 @@ function Skills({ ResumeInfo }) {
 
       <div className="grid gird-cols-2 gap-3 my-4">
         {ResumeInfo?.skills?.map((skill, index) => (
-          <div
-            key={index}
-            className="flex items-center justify-between my-1"
-          >
+          <div key={index} className="flex items-center justify-between my-1">
             <h2 className="text-xs">{skill?.name}</h2>
 
             <div className="h-2 bg-gray-200 w-[70px] rounded">
               <div
                 className="h-2 rounded"
                 style={{
-                  backgroundColor:ResumeInfo?.themeColor,
-                  width:`${(skill?.rating/5)*100}%`,
+                  backgroundColor: ResumeInfo?.themeColor,
+                  width: `${(skill?.rating / 5) * 100}%`,
                 }}
               ></div>
             </div>

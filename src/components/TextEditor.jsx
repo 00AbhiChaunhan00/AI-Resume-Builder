@@ -2,10 +2,10 @@ import React, { useState, useContext } from "react";
 import { EditorState, ContentState } from "draft-js";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { Editor } from "react-draft-wysiwyg";
-import { Brain } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { ResumeContext } from '/src/ContextProvider.jsx';
-import { LoaderCircle } from 'lucide-react';
+import { Brain } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ResumeContext } from "/src/ContextProvider.jsx";
+import { LoaderCircle } from "lucide-react";
 import { toast } from "sonner";
 import { main } from "/src/DATA/AIData.js";
 
@@ -17,7 +17,7 @@ function TextEditor({ onEditorChange, index }) {
 
   const AISummery = async () => {
     const title = ResumeInfo?.experience?.[index]?.title;
-    console.log("generating...")
+    console.log("generating...");
     if (title) {
       toast("Add your title");
       return;
@@ -25,15 +25,13 @@ function TextEditor({ onEditorChange, index }) {
     try {
       setLoading(true);
       const prompt = PROMPT.replace("{positionTitle}", title);
-      let result = await main(prompt);  //  plain text bullets we get from AI
+      let result = await main(prompt); //  plain text bullets we get from AI
 
       const content = ContentState.createFromText(result); //  NO HTML parsing needeb because the data already in plain text
-      setEditorState(EditorState.createWithContent(content));  // functoin used in this based on text editor
-      // console.log(content)
+      setEditorState(EditorState.createWithContent(content)); // functoin used in this based on text editor
       setLoading(false);
       toast("AI summary generated");
-    } catch (err) {
-      // console.log(err);
+    } catch {
       setLoading(false);
       toast("AI overloaded, try later");
     }
@@ -55,14 +53,17 @@ function TextEditor({ onEditorChange, index }) {
           size="sm"
           className=" text-primary border-primary flex gap-2"
         >
-          {loading ? <LoaderCircle className="animate-spin" /> :
-            <span className="flex"><Brain /> Generate AI Summary</span>
-          }
+          {loading ? (
+            <LoaderCircle className="animate-spin" />
+          ) : (
+            <span className="flex">
+              <Brain /> Generate AI Summary
+            </span>
+          )}
         </Button>
       </div>
 
       <Editor
-       
         editorState={editorState}
         onEditorStateChange={handleEditorChange}
         toolbar={{
