@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { LoaderCircle, Notebook } from 'lucide-react'
+import cvImg from "/src/assets/cv.png"
 import {Link, useNavigate} from 'react-router-dom'
 import { toast } from "sonner"
 import { MoreVertical } from 'lucide-react'
@@ -50,7 +51,7 @@ toast('Resume deleted')
          <div className='flex 
         items-center justify-center h-[180px] '>
                 {/* <Notebook/> */}
-                <img src="/src/assets/cv.png" width={300} height={300} />
+                <img src={cvImg} width={300} height={300} />
               </div>
     </div>
     </Link>
