@@ -108,25 +108,6 @@ npm run dev
 
 ---
 
-## 📁 Folder Structure
-
-```
-AI-Resume-Builder/
-│
-├── src/
-│   ├── components/
-│   ├── pages/
-│   ├── ContextProvider.jsx
-│   ├── DATA/
-│   ├── hooks/
-│   ├── App.jsx
-│   └── main.jsx
-│
-├── public/
-├── package.json
-└── tailwind.config.js
-```
-
 ---
 
 ## 🚀 Deployment
