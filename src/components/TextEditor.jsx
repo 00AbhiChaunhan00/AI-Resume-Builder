@@ -1,15 +1,25 @@
 import React, { useState, useContext } from "react";
-import { EditorState, ContentState } from "draft-js";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { EditorState, ContentState, convertToRaw } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
-import { Brain } from "lucide-react";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css"; // <-- Ensure this is present!
+import { Brain, LoaderCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ResumeContext } from "/src/ContextProvider.jsx";
-import { LoaderCircle } from "lucide-react";
 import { toast } from "sonner";
 import { main } from "/src/DATA/AIData.js";
+import draftToHtml from "draftjs-to-html";
+import htmlToDraft from "html-to-draftjs"; 
+const PROMPT = `
+Write 4 strong, professional resume bullet points for the role: {positionTitle}.
+Each bullet should:
+- Start with a powerful action verb
+- Show impact or results
+- Be clear, concise, and easy to read
 
-const PROMPT = `Generate 3–4 professional resume bullet points for this job title: {positionTitle}.Return ONLY plain text with bullet icons (•). No HTML.`;
+Return the response ONLY as an HTML unordered list: <ul><li>...</li></ul>.
+`;
+
+
 function TextEditor({ onEditorChange, index }) {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const { ResumeInfo } = useContext(ResumeContext);
@@ -17,46 +27,49 @@ function TextEditor({ onEditorChange, index }) {
 
   const AISummery = async () => {
     const title = ResumeInfo?.experience?.[index]?.title;
-    console.log("generating...");
-    if (title) {
-      toast("Add your title");
-      return;
-    }
+    console.log(title)
+    // if (!title) {
+    //   toast("Please add your job title first.");
+    //   return;
+    // }
     try {
       setLoading(true);
-      const prompt = PROMPT.replace("{positionTitle}", title);
-      let result = await main(prompt); //  plain text bullets we get from AI
+      const prompt = PROMPT.replace("{positionTitle}",title);
+      let htmlResult = await main(prompt);
 
-      const content = ContentState.createFromText(result); //  NO HTML parsing needeb because the data already in plain text
-      setEditorState(EditorState.createWithContent(content)); // functoin used in this based on text editor
+      const blocksFromHtml = htmlToDraft(htmlResult);
+      const { contentBlocks, entityMap } = blocksFromHtml;
+      const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
+      setEditorState(EditorState.createWithContent(contentState));
+
       setLoading(false);
-      toast("AI summary generated");
+      toast("AI summary generated.");
     } catch {
       setLoading(false);
-      toast("AI overloaded, try later");
+      toast("AI overloaded, try later.");
     }
   };
 
   const handleEditorChange = (state) => {
     setEditorState(state);
-    const text = state.getCurrentContent().getPlainText(); // plain text same these fn are based acc. to editor
-    onEditorChange(text);
+    const html = draftToHtml(convertToRaw(state.getCurrentContent()));
+    onEditorChange(html);
   };
 
   return (
     <div className="bg-[#CBC7C7] rounded-2xl max-w-3xl mx-auto p-6">
-      <div className="flex justify-between my-2">
-        <h1 className="text-xl font-bold mb-4 text-gray-800">Summary</h1>
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-2 md:gap-0">
+        <h1 className="text-xl font-bold text-gray-800">Summary</h1>
         <Button
           onClick={AISummery}
           variant="outline"
           size="sm"
-          className=" text-primary border-primary flex gap-2"
+          className="text-primary border-primary flex gap-2 w-full md:w-auto"
         >
           {loading ? (
             <LoaderCircle className="animate-spin" />
           ) : (
-            <span className="flex">
+            <span className="flex items-center gap-1">
               <Brain /> Generate AI Summary
             </span>
           )}
@@ -66,8 +79,9 @@ function TextEditor({ onEditorChange, index }) {
       <Editor
         editorState={editorState}
         onEditorStateChange={handleEditorChange}
+        // This configuration defines the short, desired toolbar
         toolbar={{
-          options: ["inline", "list", "history"],
+          options: ["inline", "list", "history"], 
           inline: { options: ["bold", "italic", "underline"] },
           list: { options: ["unordered", "ordered"] },
         }}

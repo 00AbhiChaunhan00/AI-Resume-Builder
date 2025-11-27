@@ -74,24 +74,24 @@ function SummeryForm() {
       <p>Add summery for you job title</p>
 
       <form onSubmit={onSave} className="mt-7">
-        <div className="flex justify-between items-end">
-          <label>Add summery</label>
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-2 sm:gap-0">
+          <label className="text-lg font-semibold mb-1 sm:mb-0">
+            Add summary
+          </label>
           <Button
             type="button"
             variant="outline"
             size="sm"
-            className=" border-primary text-primary flex gap-2 "
+            className="border-primary text-primary flex gap-2 w-full sm:w-auto"
             onClick={() => AISummery()}
           >
-            {" "}
             {LoadingAI ? (
               <LoaderCircle className="animate-spin" />
             ) : (
-              <span className="flex gap-2">
-                {" "}
-                <Brain className="m-[2px]" /> Generate AI Summery{" "}
+              <span className="flex items-center gap-2">
+                <Brain className="m-[2px]" /> Generate AI Summary
               </span>
-            )}{" "}
+            )}
           </Button>
         </div>
 

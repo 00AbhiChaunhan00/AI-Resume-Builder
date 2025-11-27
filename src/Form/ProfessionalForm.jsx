@@ -61,7 +61,7 @@ function ProfessionalForm() {
         toast("Details Added");
       },
       () => {
-        // console.error("API Update Failed:", err);
+     
         toast("Server Error");
         setLoading(false);
       }
@@ -147,6 +147,7 @@ function ProfessionalForm() {
 
                   <div className=" my-2 col-span-2 border rounded p-2 bg-white">
                     <TextEditor
+                    index={index}
                       defaultValue={item?.workSummery}
                       onEditorChange={(text) =>
                         handleEditor(index, "workSummery", text)
