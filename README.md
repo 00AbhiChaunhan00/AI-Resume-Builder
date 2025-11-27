@@ -3,8 +3,9 @@
 A modern, beautifully designed **AI-powered Resume Builder** built with **React**, featuring real-time resume editing, AI-generated summaries, theme customization, and seamless authentication.  
 Users can create, edit, save, and download their resumes — completely free.
 
-This project is integrated with a **Strapi backend**, deployed on **Render**, uses **Neon PostgreSQL** as the database, and is hosted on **Vercel** for fast global access.
 [Live Demo](https://ai-resume-builder-00.vercel.app/)
+This project is integrated with a **Strapi backend**, deployed on **Render**, uses **Neon PostgreSQL** as the database, and is hosted on **Vercel** for fast global access.
+
 ---
 
 ## 🚀 Tech Stack
